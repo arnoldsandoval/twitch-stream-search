@@ -1,0 +1,22 @@
+ @import "normalize";
+ @import "inputs";
+ @import "typography";
+ @import "grid";
+
+body {
+  background: #f9f9f9;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 200;
+}
+
+img {
+  width: 100%;
+}
+
+.container {
+  padding-top: 150px;
+}
+
+@import "components/header";
+@import "components/card";
+@import "components/pagination";

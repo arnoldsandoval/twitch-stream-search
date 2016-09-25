@@ -1,0 +1,52 @@
+
+.header{
+  background: #102880;
+  margin-bottom: 15px;
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+
+  .branding{
+    position: absolute;
+    top: 20px;
+    left:20px;
+    .logo{
+      img{
+        max-width: 35px;
+      }
+    }
+    .load-indicator{
+      display: none;
+      margin-top:5px;
+    }
+
+  }
+
+  input{
+    border:none;
+    padding: 25px 65px;
+    box-shadow: 0px 3px 3px 0px rgba(0,0,0,.25);
+    font-weight: bold;
+    color: #fff;
+    font-size: 18px;
+    background: transparent;
+
+    &:focus{
+      background: #fff;
+      color: #102880;
+      box-shadow: inset 0px 3px 3px 0px transparentize(#000, .90);
+    }
+    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      color: #fff;
+    }
+    &::-moz-placeholder { /* Firefox 19+ */
+      color: #fff;
+    }
+    &:-ms-input-placeholder { /* IE 10+ */
+      color: #fff;
+    }
+    &:-moz-placeholder { /* Firefox 18- */
+      color: #fff;
+    }
+  }
+}
