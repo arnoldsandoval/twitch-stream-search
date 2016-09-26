@@ -7,6 +7,7 @@ var babelify = require('babelify');
 var browserSync = require('browser-sync').create();
 var scss = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
+var jade = require('gulp-jade');
 
 
 function bundler(bundler) {
@@ -17,7 +18,7 @@ function bundler(bundler) {
       gutil.log(e);
     })
     .pipe(source('bundle.js'))
-    .pipe(gulp.dest('./app/dist/js'))
+    .pipe(gulp.dest('./dist/js'))
     .pipe(browserSync.stream());
 }
 
@@ -36,7 +37,7 @@ gulp.task('watchify', function(){
 
 gulp.task('browsersync', function(){
   browserSync.init({
-      server: "./app",
+      server: "./dist",
       logFileChanges: false
   });
 })
@@ -45,18 +46,32 @@ gulp.task('js', function(){
   return bundler(browserify('./app/js/app.js'));
 });
 
+
+gulp.task('watch-scss', function () {
+  return gulp.watch('./app/scss/main.scss', ['scss']);
+});
+
 gulp.task('scss', function(){
   return gulp
     .src('./app/scss/main.scss')
     .pipe(sourcemaps.init())
     .pipe(scss.sync().on('error', scss.logError))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./app/dist/css'))
+    .pipe(gulp.dest('./dist/css'))
     .pipe(browserSync.reload({stream:true}));
 });
 
-gulp.task('watch-scss', function () {
-  return gulp.watch('./app/scss/main.scss', ['scss']);
+gulp.task('watch-jade', function () {
+  return gulp.watch('./app/*.jade', ['jade']);
 });
 
-gulp.task('default', ['scss', 'watch-scss', 'watchify', 'browsersync']);
+gulp.task('jade', function() {
+  gulp.src('./app/*.jade')
+    .pipe(jade())
+    .pipe(gulp.dest('./dist'))
+    .pipe(browserSync.reload({stream:true}));
+});
+
+
+
+gulp.task('default', ['jade', 'watch-jade', 'scss', 'watch-scss', 'watchify', 'browsersync']);

@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    title Twitch Search
+    link(href='https://fonts.googleapis.com/css?family=Roboto', rel='stylesheet')
+    link(rel='stylesheet', type='text/css', href='css/main.css')
+  body
+    .feature-search
+      .header
+        .branding
+          .logo
+            img(src='http://s.jtvnw.net/jtv_user_pictures/hosted_images/GlitchIcon_white.png', alt='Twitch logo')
+        input#query(type='search', name='query', placeholder='Type your stream query here and hit enter', required='')
+      .container
+        .row
+          .col-lg-6
+            #result-total
+            
+        #results.row
+        .row
+          .col-xs-12
+            ul.pagination
+              li
+                a#trigger-prev(href='#') Prev
+              li#count
+              li
+                a#trigger-next(href='#') Next
+                
+    script(type='text/javascript', src='js/bundle.js')
