@@ -43,8 +43,6 @@ class Search {
 
     // Instantiate Pagination event listeners
     this.pagination.on('changePage', () => this.onPageChange())
-    // this.pagination.on('lastPage', () => this.onLastPage())
-    // this.pagination.on('firstPage', () => this.onFirstPage())
 
     // Instantiate Search Input event listeners
     this.searchInput.on('submitQuery', () => this.onQuerySubmit())
@@ -76,19 +74,6 @@ class Search {
 
   }
 
-  // /**
-  //  * onLastPage
-  //  */
-  // onLastPage() {
-  //   Dom.addClass(this.featureSelector, 'is-last-page')
-  // }
-  //
-  // /**
-  //  * onPageonFirstPage
-  //  */
-  // onFirstPage() {
-  //   Dom.addClass(this.featureSelector, 'is-first-page')
-  // }
 
   /**
    *
