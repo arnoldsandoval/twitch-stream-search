@@ -1,0 +1,142 @@
+@keyframes pulse-color-hot {
+  0% {color: #FFCDD2;}
+  50% {color: #C62828;}
+  100% {color: #FFCDD2;}
+}
+
+@keyframes pulse-color-medium {
+  0% {color: #FFE0B2;}
+  50% {color: #EF6C00;}
+  100% {color: #FFE0B2;}
+}
+
+@keyframes pulse-bg-hot {
+  0% {fill: #FFCDD2;}
+  50% {fill: #C62828;}
+  100% {fill: #FFCDD2;}
+}
+
+@keyframes pulse-bg-medium {
+  0% {fill: #FFE0B2;}
+  50% {fill: #EF6C00;}
+  100% {fill: #FFE0B2;}
+}
+
+.card {
+  transition: box-shadow .3s ease-in-out, transform .25s ease-in-out;
+  box-shadow: 2px 2px 5px rgba(0,0,0,.05);
+  min-height: 300px;
+  background: #fff;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  color:#333;
+
+  &.theme-hot{
+    .viewers{
+      animation-direction: normal;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      animation-name: pulse-color-hot;
+      animation-timing-function: ease;
+      svg {
+        & path, & g{
+          animation-direction: normal;
+          animation-duration: 2s;
+          animation-iteration-count: infinite;
+          animation-name: pulse-bg-hot;
+          animation-timing-function: ease;
+        }
+      }
+    }
+  }
+  &.theme-medium{
+    .viewers{
+      animation-direction: normal;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      animation-name: pulse-color-medium;
+      animation-timing-function: ease;
+      svg {
+        & path, & g{
+          animation-direction: normal;
+          animation-duration: 2s;
+          animation-iteration-count: infinite;
+          animation-name: pulse-bg-medium;
+          animation-timing-function: ease;
+        }
+      }
+    }
+  }
+
+  .info{
+    padding: 15px;
+    position: relative;
+
+    .viewers {
+      position: absolute;
+      top: -15px;
+      right: 15px;
+      // min-width: 50px;
+      text-align: right;
+      font-size: 14px;
+      color: lighten(#333, 50);
+      background: #fff;
+      padding: 3px 5px 3px 20px;
+      border-radius: 10px;
+      svg{
+        position: absolute;
+        left:0;
+        & path, & g{
+          fill: #b2b2b2;
+        }
+      }
+    }
+
+    .title{
+      font-size: 1em;
+      margin-bottom: 5px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #102880;
+
+    }
+    .metadata{
+      margin: 0;
+      padding: 0;
+      text-transform: uppercase;
+      color: lighten(#333, 50);
+      margin-bottom: 10px;
+      font-size: 13px;
+      li{
+        display: inline-block;
+      }
+    }
+    .description{
+      opacity: .5;
+      p{
+        font-size: .8rem;
+      }
+    }
+  }
+
+  img{
+    width: 100%;
+    background: #ccc;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+    transition: all .3s ease-in-out;
+  }
+
+  &:hover, &:focus{
+    transition: box-shadow .25s ease-in-out, transform .25s ease-in-out;
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,.15);
+    transform: scale(1.025);
+    img{
+      transition: all .3s ease-in-out;
+    }
+  }
+
+}
