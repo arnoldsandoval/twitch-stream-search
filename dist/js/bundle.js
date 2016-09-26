@@ -264,13 +264,59 @@ var search = new Search({
 },{"./components/pagination":2,"./components/search-input":3,"./utils/data":4,"./utils/dom":5}],2:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _typeof5 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _typeof4 = typeof Symbol === "function" && _typeof5(Symbol.iterator) === "symbol" ? function (obj) {
+  return typeof obj === "undefined" ? "undefined" : _typeof5(obj);
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof5(obj);
+};
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+var _typeof3 = typeof Symbol === "function" && _typeof4(Symbol.iterator) === "symbol" ? function (obj) {
+  return typeof obj === "undefined" ? "undefined" : _typeof4(obj);
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof4(obj);
+};
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+var _typeof2 = typeof Symbol === "function" && _typeof3(Symbol.iterator) === "symbol" ? function (obj) {
+  return typeof obj === "undefined" ? "undefined" : _typeof3(obj);
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof3(obj);
+};
+
+var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
+  return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
 
 /**
  * Pagination
@@ -317,23 +363,9 @@ var Pagination = function (_EventEmitter) {
    * Init
    */
 
-
   _createClass(Pagination, [{
     key: 'init',
     value: function init() {
-      var _this2 = this;
-
-      // Selectors
-      this.selectorPrev = document.querySelector('#trigger-prev');
-      this.selectorNext = document.querySelector('#trigger-next');
-
-      // Instantiate Click Events!
-      this.selectorPrev.addEventListener('click', function () {
-        return _this2.emit('prevPage');
-      });
-      this.selectorNext.addEventListener('click', function () {
-        return _this2.emit('nextPage');
-      });
 
       // Instantiate Custom Events!
       this.on('nextPage', this.nextPage);
@@ -354,15 +386,20 @@ var Pagination = function (_EventEmitter) {
     }
 
     /**
-     * templateResultTotal
-     * Displays total result count.
+     * templatePaginationNav
+     * Displays total result count as well as next and previous triggers.
      *
      */
 
   }, {
-    key: 'templateCount',
-    value: function templateCount() {
-      return '<span>' + this.currentPage + '</span> / <span>' + this.pagesTotal + '</span>';
+    key: 'templatePaginationNav',
+    value: function templatePaginationNav() {
+      var isFirstPage = this.isFirstPage();
+      var isLastPage = this.isLastPage();
+      var prevClass = isFirstPage ? 'next hidden' : 'next';
+      var nextClass = isLastPage ? 'next hidden' : 'next';
+
+      return '\n        <ul class="pagination">\n          <li class="' + prevClass + '"><a id="trigger-prev" href="#">Prev</a></li>\n          <li id="count"><span>' + this.currentPage + '</span> / <span>' + this.pagesTotal + '</span></li>\n          <li class="' + nextClass + '"><a id="trigger-next" href="#">Next</a></li>\n        </ul>\n      ';
     }
 
     /**
@@ -481,13 +518,27 @@ var Pagination = function (_EventEmitter) {
   }, {
     key: 'update',
     value: function update(total) {
+      var _this2 = this;
+
       // Set the Total Item Count
       this.countTotal = total;
       this.pagesTotal = this.setTotalPages();
 
       // Update Pagination Components
-      Dom.replace('#count', this.templateCount());
+      Dom.replace('#count', this.templatePaginationNav());
       Dom.replace('#result-total', this.templateResultTotal());
+
+      // Selectors
+      this.selectorPrev = document.querySelector('#trigger-prev');
+      this.selectorNext = document.querySelector('#trigger-next');
+
+      // Instantiate Click Events!
+      this.selectorPrev.addEventListener('click', function () {
+        return _this2.emit('prevPage');
+      });
+      this.selectorNext.addEventListener('click', function () {
+        return _this2.emit('nextPage');
+      });
     }
 
     /**
