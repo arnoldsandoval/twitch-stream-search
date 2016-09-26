@@ -17,6 +17,10 @@ img {
   padding-top: 150px;
 }
 
+.hidden{
+  visibility: hidden;
+}
+
 @import "components/header";
 @import "components/card";
 @import "components/pagination";

@@ -32,7 +32,6 @@ class Pagination extends EventEmitter {
     this.offsetIncrement = this.settings.offsetIncrement || this.settings.limit
     this.offset = this.settings.offset || 0
 
-
     this.init() // Let's paginate some stuff!
 
   }
@@ -43,14 +42,6 @@ class Pagination extends EventEmitter {
    * Init
    */
   init() {
-
-    // Selectors
-    this.selectorPrev = document.querySelector('#trigger-prev')
-    this.selectorNext = document.querySelector('#trigger-next')
-
-    // Instantiate Click Events!
-    this.selectorPrev.addEventListener('click', () => this.emit('prevPage'))
-    this.selectorNext.addEventListener('click', () => this.emit('nextPage'))
 
     // Instantiate Custom Events!
     this.on('nextPage', this.nextPage)
@@ -70,13 +61,24 @@ class Pagination extends EventEmitter {
    }
 
    /**
-    * templateResultTotal
-    * Displays total result count.
+    * templatePaginationNav
+    * Displays total result count as well as next and previous triggers.
     *
     */
 
-    templateCount() {
-      return `<span>${this.currentPage}</span> / <span>${this.pagesTotal}</span>`
+    templatePaginationNav() {
+      const isFirstPage = this.isFirstPage()
+      const isLastPage = this.isLastPage()
+      const prevClass = (isFirstPage) ? 'next hidden'  : 'next'
+      const nextClass = (isLastPage) ? 'next hidden'  : 'next'
+
+      return `
+        <ul class="pagination">
+          <li class="${prevClass}"><a id="trigger-prev" href="#">Prev</a></li>
+          <li id="count"><span>${this.currentPage}</span> / <span>${this.pagesTotal}</span></li>
+          <li class="${nextClass}"><a id="trigger-next" href="#">Next</a></li>
+        </ul>
+      `
     }
 
   /**
@@ -179,13 +181,24 @@ class Pagination extends EventEmitter {
    * update
    */
   update(total){
+
     // Set the Total Item Count
     this.countTotal = total
     this.pagesTotal = this.setTotalPages()
 
     // Update Pagination Components
-    Dom.replace('#count', this.templateCount())
+    Dom.replace('#count', this.templatePaginationNav())
     Dom.replace('#result-total', this.templateResultTotal())
+
+
+    // Selectors
+    this.selectorPrev = document.querySelector('#trigger-prev')
+    this.selectorNext = document.querySelector('#trigger-next')
+
+    // Instantiate Click Events!
+    this.selectorPrev.addEventListener('click', () => this.emit('prevPage'))
+    this.selectorNext.addEventListener('click', () => this.emit('nextPage'))
+
   }
 
 
