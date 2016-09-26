@@ -26,8 +26,6 @@ const DOM = {
 
   },
 
-
-
   /**
    * Replaces a specified selector with a template (string litteral);
    *
@@ -37,8 +35,6 @@ const DOM = {
   replace: function(selector, template) {
     document.querySelector(selector).innerHTML = template
   },
-
-
 
   /**
    * Removes a DOM element
@@ -51,8 +47,6 @@ const DOM = {
     element.removeChild(childToRemove)
   },
 
-
-
   /**
    * Add a class to on a given element
    *
@@ -63,8 +57,6 @@ const DOM = {
     const element = document.querySelector(selector);
     element.classList.add(className);
   },
-
-
 
   /**
    * Remove a class on a given element
@@ -79,8 +71,6 @@ const DOM = {
     }
   },
 
-
-
   /**
    * Remove a class on a given element
    *
@@ -93,8 +83,6 @@ const DOM = {
     this.addClass(selector, newClassName)
   },
 
-
-
   /**
    * Sets a multiple attributes to a given element
    * @param {String} selector to add a class to
@@ -106,8 +94,6 @@ const DOM = {
       element.setAttribute(key, attributes[key])
     }
   }
-
-
 
 }
 

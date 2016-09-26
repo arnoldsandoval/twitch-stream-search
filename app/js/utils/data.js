@@ -16,17 +16,13 @@ class Data {
     this.jsonpCallbackFunction = null
   }
 
-
-
   /**
    * Generate callback function name.
    * @return {String} the callback identifier
    */
   generateCallbackFunction() {
-    return `jsonp_${Date.now()}_${Math.ceil(Math.random())}`
+    return `jsonp_${Date.now()}_${Math.ceil(Math.random() * 1000)}`
   }
-
-
 
   /**
    * Clear the function
@@ -39,7 +35,6 @@ class Data {
       window[functionName] = undefined
     }
   }
-
 
   /**
    * Removes the script from the DOM

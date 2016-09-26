@@ -36,18 +36,14 @@ class Pagination extends EventEmitter {
 
   }
 
-
-
   /**
-   * Init
+   * Invoke functions/methods required at point of class instantiation.
    */
   init() {
-
     // Instantiate Custom Events!
     this.on('nextPage', this.nextPage)
     this.on('prevPage', this.prevPage)
     this.on('changePage', this.changePage)
-
   }
 
   /**
@@ -55,7 +51,6 @@ class Pagination extends EventEmitter {
    * Displays total result count.
    *
    */
-
    templateResultTotal() {
      return `<span>${this.countTotal}</span> streams found`
    }
@@ -65,12 +60,10 @@ class Pagination extends EventEmitter {
     * Displays total result count as well as next and previous triggers
     * conditionally depending on wether or not its the first or last page.
     */
-
     templatePaginationNav() {
-
       const isFirstPage = this.isFirstPage()
       const isLastPage = this.isLastPage()
-      const prevClass = (isFirstPage) ? 'next hidden'  : 'next'
+      const prevClass = (isFirstPage) ? 'prev hidden'  : 'prev'
       const nextClass = (isLastPage) ? 'next hidden'  : 'next'
 
       return `
@@ -93,8 +86,6 @@ class Pagination extends EventEmitter {
     this.emit('changePage')
   }
 
-
-
   /**
    * prevPage
    * decrements the page count value and updates offsets accordingly.
@@ -106,27 +97,23 @@ class Pagination extends EventEmitter {
     this.emit('changePage')
   }
 
-
-
   /**
-   * [pages description]
+   * Checks to see if the current page is the first.
    * @type {[type]}
    */
   isFirstPage() { return this.currentPage === 1 }
 
-
   /**
-   * [pages description]
-   * @type {[type]}
+   * Checks to see if the current page is the last.
+   * @return {Boolean}
    */
   isLastPage() { return this.currentPage === this.pagesTotal }
 
 
 
   /**
-   * changePage
-   * Contains checks for first and last page and emits their events if
-   * conditions met.
+   * Contains event actions for when a page is changed, Contains checks for
+   * first and last page and emits their events if conditions met.
    */
   changePage() {
     const lastPage = this.isLastPage()
@@ -145,6 +132,7 @@ class Pagination extends EventEmitter {
   /**
    * setTotalPages
    *
+   * return
    */
   setTotalPages() {
     this.pagesTotal = Math.ceil(this.countTotal/this.offsetIncrement)

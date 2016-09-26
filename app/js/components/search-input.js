@@ -15,22 +15,17 @@ class SearchInput extends EventEmitter {
     this.query
     this.input = document.querySelector(options.selector)
 
-
     this.init()
   }
 
   /**
-   * Init
+   * Invoke functions/methods required at point of class instantiation.
    */
   init() {
-
     // Instantiate Input Events!
     this.input.addEventListener('keypress', (event) => this.keypress(event))
     this.input.addEventListener('blur', (event) => this.blur(event))
-
   }
-
-
 
   keypress(event) {
     const isEnterKey = (event.keyCode === 13)
@@ -47,15 +42,8 @@ class SearchInput extends EventEmitter {
 
   }
 
-
-
    blur(event){
      this.emit('blur')
-    //  const isNewQuery = !(this.apiSettings.params.q === this.inputElement.value)
-     //
-    //  if (isNewQuery) {
-    //    this.inputElement.value = this.apiSettings.params.q;
-    //  }
    }
 
 }
