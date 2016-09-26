@@ -62,11 +62,12 @@ class Pagination extends EventEmitter {
 
    /**
     * templatePaginationNav
-    * Displays total result count as well as next and previous triggers.
-    *
+    * Displays total result count as well as next and previous triggers
+    * conditionally depending on wether or not its the first or last page.
     */
 
     templatePaginationNav() {
+
       const isFirstPage = this.isFirstPage()
       const isLastPage = this.isLastPage()
       const prevClass = (isFirstPage) ? 'next hidden'  : 'next'
