@@ -1,6 +1,3 @@
-// Known Issues
-// https://discuss.dev.twitch.tv/t/is-the-search-streams-part-of-the-api-broken/2385/6
-
 const Pagination = require('./components/pagination')
 const SearchInput = require('./components/search-input')
 const Data = require('./utils/data')
@@ -33,7 +30,6 @@ class Search {
 
   }
 
-
   /**
    * Invoke functions/methods required at point of class instantiation.
    */
@@ -49,9 +45,8 @@ class Search {
 
   }
 
-
   /**
-   * onPageChange
+   * Fires when a page is changed
    */
   onPageChange() {
 
@@ -76,22 +71,17 @@ class Search {
 
 
   /**
-   *
+   * Fires when a user submits a query
    */
   onQuerySubmit() {
-
     // Set the new query
     this.apiSettings.params.q = this.searchInput.query
-
     // Generate the API URL
     this.url = this.generateApiUrl(this.apiSettings)
-
     // Reset pagination counter
     this.pagination.reset()
-
     // Get the new results!
     this.fetchResults()
-
   }
 
   /**
@@ -118,8 +108,6 @@ class Search {
     return url
   }
 
-
-
   /**
    * templateResult
    * Template used for each search result.
@@ -129,7 +117,7 @@ class Search {
    *
    * TODO: Implement SVG Maps, move SVG in viewers element to apropriate place.
    *
-   * @return {String} template string for an individual search result
+   * @return {String} template string for an individual search result.
    */
   templateResult(data) {
     return `
@@ -176,33 +164,36 @@ class Search {
     `
   }
 
+  /**
+   * Determines stream activity based on how many viewers it has
+   *
+   * NOTE: This is ued to set an "activity" key, to be used for design
+   * purposes. I consider this to be business logic, which would be apart of
+   * the API, however this should do fine for now.
+   *
+   * @param {Number} viewers number of viewers for a given stream.
+   *
+   * @return {String} activity returns a readable activity status based on.
+   */
+  getStreamActivity(viewers) {
 
-    /**
-     * Determines stream activity based on how many viewers it has
-     *
-     * NOTE: This is ued to set an "activity" key, to be used for design
-     * purposes. I consider this to be business logic, which would be apart of
-     * the API, however this should do fine for now.
-     */
-    getStreamActivity(viewers) {
+    let activity = 'cold';
 
-      if (viewers > 500 && viewers < 999){
-        return 'medium'
-      }
-
-      else if (viewers > 1000) {
-        return 'hot'
-      }
-
-      return 'cold'
-
+    if (viewers > 500 && viewers < 999){
+      activity = 'medium'
+    }
+    else if (viewers > 1000) {
+      activity = 'hot'
     }
 
+    return activity
+
+  }
+
 
 
     /**
-     * fetchResults
-     * Retrieves data from a specified URL
+     * Retrieves data from a specified URL.
      */
     fetchResults() {
 
@@ -220,10 +211,9 @@ class Search {
 
 
     /**
-     * displayResults
+     * Displays all search results and replaces old results in DOM.
      *
-     * @param {Object} json data object which is used to
-     *
+     * @param {Object} json data object which is used to.
      */
     displayResults(json) {
 
