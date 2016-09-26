@@ -70,7 +70,7 @@ class Pagination extends EventEmitter {
 
       const isFirstPage = this.isFirstPage()
       const isLastPage = this.isLastPage()
-      const prevClass = (isFirstPage) ? 'next hidden'  : 'next'
+      const prevClass = (isFirstPage) ? 'prev hidden'  : 'prev'
       const nextClass = (isLastPage) ? 'next hidden'  : 'next'
 
       return `
